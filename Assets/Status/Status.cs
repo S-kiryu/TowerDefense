@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewStatus",menuName = "Status")]
 public class Status : ScriptableObject 
 {
+    public TowerType TowerType;
     public float Hp;
     public float Strength;
     public float Magic;

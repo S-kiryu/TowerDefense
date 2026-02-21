@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42a081d5e644c0f468f37816751c7033, type: 3}
-  m_Name: PlayerStatus
+  m_Name: TowerStatus
   m_EditorClassIdentifier: Assembly-CSharp::Status
   Hp: 100
   Strength: 1

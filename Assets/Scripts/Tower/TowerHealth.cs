@@ -2,20 +2,23 @@ using UnityEngine;
 
 public class TowerHealth : MonoBehaviour
 {
-    [SerializeField] private Status _baseStatus;
-    private Status _runtimeStatus;
+    [SerializeField] private TowerType _towerType;
+    private float TowerHp;
 
     void Awake()
     {
+        // TowerDataRegistryからタワーの基本ステータスを取得
+        var _baseStatus = TowerDataRegistry.Instance.GetStatus(_towerType);
+
         // baseStatusをコピーしてruntimeStatusを作成
-        _runtimeStatus = Instantiate(_baseStatus);
+        TowerHp = _baseStatus.Hp;
     }
 
     public void TakeDamage(float damage)
     {
-        _runtimeStatus.Hp -= damage;
+        TowerHp -= damage;
 
-        if (_runtimeStatus.Hp <= 0)
+        if (TowerHp <= 0)
             Die();
     }
 
