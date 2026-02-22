@@ -23,6 +23,7 @@ public class TowerDataRegistry : MonoBehaviour
         }
     }
 
+    // TowerType‚ğ“n‚·‚Æ‘Î‰‚·‚éStatus‚ğ•Ô‚·ƒƒ\ƒbƒh
     public Status GetStatus(TowerType towerType)
     {
         if (_statusDictionary.TryGetValue(towerType, out var status))

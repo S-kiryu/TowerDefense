@@ -5,7 +5,7 @@ public class TowerHealth : MonoBehaviour
     [SerializeField] private TowerType _towerType;
     private float TowerHp;
 
-    void Awake()
+    void Start()
     {
         // TowerDataRegistryからタワーの基本ステータスを取得
         var _baseStatus = TowerDataRegistry.Instance.GetStatus(_towerType);
@@ -17,6 +17,7 @@ public class TowerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         TowerHp -= damage;
+        Debug.Log($"{_towerType} タワーが {damage} ダメージを受けました！ 残りHP: {TowerHp}");
 
         if (TowerHp <= 0)
             Die();
