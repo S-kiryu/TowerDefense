@@ -2,13 +2,34 @@ using UnityEngine;
 
 public class EnemyMove : MonoBehaviour
 {
+    
+    [SerializeField] private EnemyStatus enemyStatus;
     private Transform target;
-    [SerializeField] float speed = 3f;
-    [SerializeField] int damage = 10;
+    private float _hp;
+    private uint _damage;
+    private uint _speed;
+
+    public void intialize()
+    {
+        //初期化
+        _hp = enemyStatus.Hp;
+        _damage = enemyStatus.Attack;
+        _speed = enemyStatus.Speed;
+    }
+
+    public void HitDamage(int Damage)
+    {
+        _hp -= Damage;
+        if (_hp <= 0)
+        {
+            Die();
+        }
+    }
 
     //メインタワーを見つけて、そこに向かって移動する
     void Start()
     {
+        intialize();
         target = GameObject.FindWithTag("MainTower").transform;
     }
 
@@ -17,7 +38,13 @@ public class EnemyMove : MonoBehaviour
         if (target == null) return;
 
         Vector3 dir = (target.position - transform.position).normalized;
-        transform.position += dir * speed * Time.deltaTime;
+        transform.position += dir * _speed * Time.deltaTime;
+    }
+
+    private void Die()
+    {
+        Debug.Log("Enemyが倒されました！");
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
@@ -29,7 +56,7 @@ public class EnemyMove : MonoBehaviour
 
             if (tower != null)
             Debug.Log($"タワーに{tower}ダメージを与えました！");
-            tower.TakeDamage(damage);
+            tower.TakeDamage(_damage);
         }
     }
 }
