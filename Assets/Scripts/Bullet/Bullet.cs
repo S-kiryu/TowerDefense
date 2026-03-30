@@ -6,6 +6,8 @@ public class Bullet : MonoBehaviour
     private Pool _pool;
 
     [SerializeField] private float _speed = 10;
+    [SerializeField] private int _Damage = 1;
+    [SerializeField] private float _lifetime = 5f;
 
     public void Init(Vector3 direction, Pool pool)
     {
@@ -15,6 +17,12 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
+        _lifetime -= Time.deltaTime;
+        if (_lifetime <= 0f)
+        {
+            _pool.Return(gameObject);
+            return;
+        }
         transform.position += _direction * _speed * Time.deltaTime;
     }
 
@@ -22,6 +30,11 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            var enemy = other.GetComponent<EnemyMove>();
+            if (enemy != null)
+            {
+                enemy.HitDamage(_Damage);
+            }
             _pool.Return(gameObject);
         }
     }
